@@ -117,13 +117,10 @@ class Configuration implements ConfigurationInterface
     {
         $root_node
             ->beforeNormalization()
-            ->ifTrue(static function ($v): bool {
-                return
-                    is_array($v)
-                    && !array_key_exists('default_database', $v)
-                    && !empty($v['databases'])
-                    && is_array($v['databases']);
-            })
+            ->ifTrue(static fn($v): bool => is_array($v)
+            && !array_key_exists('default_database', $v)
+            && !empty($v['databases'])
+            && is_array($v['databases']))
             ->then(static function (array $v): array {
                 $keys = array_keys($v['databases']);
                 $v['default_database'] = reset($keys);
@@ -136,9 +133,7 @@ class Configuration implements ConfigurationInterface
     {
         $root_node
             ->beforeNormalization()
-            ->ifTrue(static function ($v): bool {
-                return $v && is_array($v) && !array_key_exists('databases', $v) && !array_key_exists('database', $v);
-            })
+            ->ifTrue(static fn($v): bool => $v && is_array($v) && !array_key_exists('databases', $v) && !array_key_exists('database', $v))
             ->then(static function (array $v): array {
                 $database = $v;
                 unset($database['default_database']);
@@ -162,9 +157,7 @@ class Configuration implements ConfigurationInterface
     {
         $root_node
             ->beforeNormalization()
-            ->ifTrue(static function ($v): bool {
-                return $v && is_array($v) && array_key_exists('databases', $v) && is_array($v['databases']);
-            })
+            ->ifTrue(static fn($v): bool => $v && is_array($v) && array_key_exists('databases', $v) && is_array($v['databases']))
             ->then(static function (array $v): array {
                 foreach ($v['databases'] as $name => $database) {
                     if (isset($database['license']) && $database['license'] === self::LICENSE_DIRTY_HACK) {
@@ -184,13 +177,10 @@ class Configuration implements ConfigurationInterface
     {
         $root_node
             ->validate()
-            ->ifTrue(static function ($v): bool {
-                return
-                    is_array($v)
-                    && array_key_exists('default_database', $v)
-                    && !empty($v['databases'])
-                    && !array_key_exists($v['default_database'], $v['databases']);
-            })
+            ->ifTrue(static fn($v): bool => is_array($v)
+            && array_key_exists('default_database', $v)
+            && !empty($v['databases'])
+            && !array_key_exists($v['default_database'], $v['databases']))
             ->then(static function (array $v): array {
                 $databases = implode('", "', array_keys($v['databases']));
 
@@ -206,13 +196,10 @@ class Configuration implements ConfigurationInterface
     {
         $root_node
             ->beforeNormalization()
-            ->ifTrue(static function ($v): bool {
-                return
-                    is_array($v)
-                    && array_key_exists('license', $v)
-                    && array_key_exists('databases', $v)
-                    && is_array($v['databases']);
-            })
+            ->ifTrue(static fn($v): bool => is_array($v)
+            && array_key_exists('license', $v)
+            && array_key_exists('databases', $v)
+            && is_array($v['databases']))
             ->then(static function (array $v): array {
                 foreach ($v['databases'] as $name => $database) {
                     if (!array_key_exists('license', $database)) {
@@ -232,13 +219,10 @@ class Configuration implements ConfigurationInterface
     {
         $root_node
             ->beforeNormalization()
-            ->ifTrue(static function ($v): bool {
-                return
-                    is_array($v)
-                    && array_key_exists('locales', $v)
-                    && array_key_exists('databases', $v)
-                    && is_array($v['databases']);
-            })
+            ->ifTrue(static fn($v): bool => is_array($v)
+            && array_key_exists('locales', $v)
+            && array_key_exists('databases', $v)
+            && is_array($v['databases']))
             ->then(static function (array $v): array {
                 foreach ($v['databases'] as $name => $database) {
                     if (!array_key_exists('locales', $database)) {
@@ -257,9 +241,7 @@ class Configuration implements ConfigurationInterface
     {
         $root_node
             ->validate()
-            ->ifTrue(static function ($v): bool {
-                return is_array($v) && array_key_exists('databases', $v) && is_array($v['databases']);
-            })
+            ->ifTrue(static fn($v): bool => is_array($v) && array_key_exists('databases', $v) && is_array($v['databases']))
             ->then(static function (array $v): array {
                 foreach ($v['databases'] as $name => $database) {
                     if (empty($database['license'])) {
@@ -294,15 +276,12 @@ class Configuration implements ConfigurationInterface
     {
         $database_node
             ->beforeNormalization()
-            ->ifTrue(static function ($v): bool {
-                return
-                    is_array($v)
-                    && !array_key_exists('url', $v)
-                    && array_key_exists('license', $v)
-                    && array_key_exists('edition', $v);
-            })
+            ->ifTrue(static fn($v): bool => is_array($v)
+            && !array_key_exists('url', $v)
+            && array_key_exists('license', $v)
+            && array_key_exists('edition', $v))
             ->then(static function (array $v): array {
-                $v['url'] = sprintf(self::URL, urlencode($v['edition']), urlencode($v['license']));
+                $v['url'] = sprintf(self::URL, urlencode((string) $v['edition']), urlencode((string) $v['license']));
 
                 return $v;
             });
@@ -315,9 +294,7 @@ class Configuration implements ConfigurationInterface
     {
         $database_node
             ->beforeNormalization()
-            ->ifTrue(static function ($v): bool {
-                return is_array($v) && !array_key_exists('path', $v) && array_key_exists('edition', $v);
-            })
+            ->ifTrue(static fn($v): bool => is_array($v) && !array_key_exists('path', $v) && array_key_exists('edition', $v))
             ->then(function (array $v): array {
                 $v['path'] = sprintf(self::PATH, $this->cache_dir, $v['edition']);
 
@@ -332,9 +309,7 @@ class Configuration implements ConfigurationInterface
     {
         $url
             ->validate()
-            ->ifTrue(static function ($v): bool {
-                return is_string($v) && $v && !filter_var($v, FILTER_VALIDATE_URL);
-            })
+            ->ifTrue(static fn($v): bool => is_string($v) && $v && !filter_var($v, FILTER_VALIDATE_URL))
             ->then(static function (string $v): array {
                 throw new \InvalidArgumentException(sprintf('URL "%s" must be valid.', $v));
             });

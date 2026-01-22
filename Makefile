@@ -1,3 +1,6 @@
+rector:
+	./vendor/bin/rector
+
 test:
 	./vendor/bin/phpunit --display-deprecations
 

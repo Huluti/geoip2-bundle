@@ -19,16 +19,12 @@ use MaxMind\Db\Reader\InvalidDatabaseException;
  */
 class TestReader extends Reader
 {
-    public string $filename;
-
-    public function __construct(string $filename, array $locales = ['en'])
+    public function __construct(public string $filename, array $locales = ['en'])
     {
-        $this->filename = $filename;
-
         try {
             // Attempt to call the real constructor
-            parent::__construct($filename, $locales);
-        } catch (InvalidDatabaseException $e) {
+            parent::__construct($this->filename, $locales);
+        } catch (InvalidDatabaseException) {
             // Ignore DB errors — test just wants to instantiate
         }
     }
