@@ -17,34 +17,28 @@ jobs:
           - php: '8.1'
             symfony: '6.4.*'
             geoip2: '~3.0'
-            phpstan: .phpstan/symfony_6.neon
 
           - php: '8.2'
             symfony: '6.4.*'
             geoip2: '~3.0'
-            phpstan: .phpstan/symfony_6.neon
 
           # Symfony 7.x
           - php: '8.2'
             symfony: '7.4.*'
             geoip2: '~3.0'
-            phpstan: .phpstan/symfony_7.neon
 
           - php: '8.3'
             symfony: '7.4.*'
             geoip2: '~3.0'
-            phpstan: .phpstan/symfony_7.neon
 
           # Symfony 8.x
           - php: '8.4'
             symfony: '8.0.*'
             geoip2: '~3.0'
-            phpstan: .phpstan/symfony_8.neon
 
           - php: '8.5'
             symfony: '8.0.*'
             geoip2: '~3.0'
-            phpstan: .phpstan/symfony_8.neon
             coverage: true
     steps:
       - name: Checkout
@@ -91,10 +85,5 @@ jobs:
           composer global require php-coveralls/php-coveralls
           php-coveralls -x build/coverage-clover.xml -o build/coveralls-upload.json -v
 
-      - name: Install PHPStan
-        run: |
-          composer global require phpstan/phpstan:"1.10.*"
-          composer global require phpstan/phpstan-phpunit:"1.3.*"
-
       - name: Run PHPStan
-        run: phpstan --memory-limit=1G analyse -c ${{ matrix.phpstan }}
+        run: ./vendor/bin/phpstan analyze --memory-limit=1G

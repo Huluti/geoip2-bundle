@@ -48,13 +48,10 @@ class Configuration implements ConfigurationInterface
         $this->cache_dir = $cache_dir ?: sys_get_temp_dir();
     }
 
-    /**
-     * @return TreeBuilder
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $tree_builder = $this->createTreeBuilder('gpslab_geoip');
-        $root_node = $this->getRootNode($tree_builder, 'gpslab_geoip');
+        $tree_builder = new TreeBuilder('gpslab_geoip');
+        $root_node = $tree_builder->getRootNode();
 
         $this->normalizeDefaultDatabase($root_node);
         $this->normalizeRootConfigurationToDefaultDatabase($root_node);
@@ -81,16 +78,13 @@ class Configuration implements ConfigurationInterface
         return $tree_builder;
     }
 
-    /**
-     * @return ArrayNodeDefinition
-     */
     private function getDatabaseNode(): ArrayNodeDefinition
     {
-        $tree_builder = $this->createTreeBuilder('databases');
-        $root_node = $this->getRootNode($tree_builder, 'databases');
+        $tree_builder = new TreeBuilder('databases');
+        $root_node = $tree_builder->getRootNode();
         $root_node->useAttributeAsKey('name');
 
-        $database_node = $this->arrayPrototype($root_node);
+        $database_node = $root_node->arrayPrototype();
 
         $this->normalizeUrl($database_node);
         $this->normalizePath($database_node);
@@ -117,74 +111,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string $name
-     *
-     * @return TreeBuilder
-     */
-    private function createTreeBuilder(string $name): TreeBuilder
-    {
-        // Symfony 4.2 +
-        if (method_exists(TreeBuilder::class, '__construct')) {
-            return new TreeBuilder($name);
-        }
-
-        // Symfony 4.1 and below
-        return new TreeBuilder();
-    }
-
-    /**
-     * @param TreeBuilder $tree_builder
-     * @param string      $name
-     *
-     * @return ArrayNodeDefinition
-     */
-    private function getRootNode(TreeBuilder $tree_builder, string $name): ArrayNodeDefinition
-    {
-        if (method_exists($tree_builder, 'getRootNode')) {
-            // Symfony 4.2 +
-            $root = $tree_builder->getRootNode();
-        } else {
-            // Symfony 4.1 and below
-            $root = $tree_builder->root($name);
-        }
-
-        // @codeCoverageIgnoreStart
-        if (!($root instanceof ArrayNodeDefinition)) { // should be always false
-            throw new \RuntimeException(sprintf('The root node should be instance of %s, got %s instead.', ArrayNodeDefinition::class, get_class($root)));
-        }
-        // @codeCoverageIgnoreEnd
-
-        return $root;
-    }
-
-    /**
-     * @param ArrayNodeDefinition $root_node
-     *
-     * @return ArrayNodeDefinition
-     */
-    private function arrayPrototype(ArrayNodeDefinition $root_node): ArrayNodeDefinition
-    {
-        // Symfony 3.3 +
-        if (method_exists($root_node, 'arrayPrototype')) {
-            return $root_node->arrayPrototype();
-        }
-
-        // Symfony 3.2 and below
-        $node = $root_node->prototype('array');
-
-        // @codeCoverageIgnoreStart
-        if (!($node instanceof ArrayNodeDefinition)) { // should be always false
-            throw new \RuntimeException(sprintf('The "array" prototype should be instance of %s, got %s instead.', ArrayNodeDefinition::class, get_class($node)));
-        }
-        // @codeCoverageIgnoreEnd
-
-        return $node;
-    }
-
-    /**
      * Normalize default_database from databases.
-     *
-     * @param NodeDefinition $root_node
      */
     private function normalizeDefaultDatabase(NodeDefinition $root_node): void
     {
@@ -205,11 +132,6 @@ class Configuration implements ConfigurationInterface
             });
     }
 
-    /**
-     * Normalize databases root configuration to default_database.
-     *
-     * @param NodeDefinition $root_node
-     */
     private function normalizeRootConfigurationToDefaultDatabase(NodeDefinition $root_node): void
     {
         $root_node
@@ -235,8 +157,6 @@ class Configuration implements ConfigurationInterface
      * Dirty hack for Symfony Flex.
      *
      * @see https://github.com/symfony/recipes-contrib/pull/837
-     *
-     * @param NodeDefinition $root_node
      */
     private function normalizeLicenseDirtyHack(NodeDefinition $root_node): void
     {
@@ -259,8 +179,6 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Validate that the default_database exists in the list of databases.
-     *
-     * @param NodeDefinition $root_node
      */
     private function validateAvailableDefaultDatabase(NodeDefinition $root_node): void
     {
@@ -283,8 +201,6 @@ class Configuration implements ConfigurationInterface
     /**
      * Add a license option to the databases configuration if it does not exist.
      * Allow use a global license for all databases.
-     *
-     * @param NodeDefinition $root_node
      */
     private function allowGlobalLicense(NodeDefinition $root_node): void
     {
@@ -311,8 +227,6 @@ class Configuration implements ConfigurationInterface
     /**
      * Add a locales option to the databases configuration if it does not exist.
      * Allow use a global locales for all databases.
-     *
-     * @param NodeDefinition $root_node
      */
     private function allowGlobalLocales(NodeDefinition $root_node): void
     {
@@ -338,8 +252,6 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Validate database options.
-     *
-     * @param NodeDefinition $root_node
      */
     private function validateDatabases(NodeDefinition $root_node): void
     {
@@ -377,8 +289,6 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Normalize url option from license key and edition id.
-     *
-     * @param NodeDefinition $database_node
      */
     private function normalizeUrl(NodeDefinition $database_node): void
     {
@@ -400,8 +310,6 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Normalize path option from edition id.
-     *
-     * @param NodeDefinition $database_node
      */
     private function normalizePath(NodeDefinition $database_node): void
     {
@@ -419,8 +327,6 @@ class Configuration implements ConfigurationInterface
 
     /**
      * The url option must be a valid URL.
-     *
-     * @param NodeDefinition $url
      */
     private function validateURL(NodeDefinition $url): void
     {
