@@ -193,7 +193,7 @@ class UpdateDatabaseCommandTest extends TestCase
     public function testDownloadWithoutLicense(): void
     {
         $this->input
-            ->expects($this->at(4))
+            ->expects($this->once())
             ->method('getArgument')
             ->with('databases')
             ->willReturn(['default']);
