@@ -19,7 +19,7 @@ use MaxMind\Db\Reader\InvalidDatabaseException;
  */
 class TestReader extends Reader
 {
-    public $filename;
+    public string $filename;
 
     public function __construct(string $filename, array $locales = ['en'])
     {

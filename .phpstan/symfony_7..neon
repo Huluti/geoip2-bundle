@@ -1,4 +1,0 @@
-# config for Symfony 7
-
-includes:
-    - symfony_5.neon
