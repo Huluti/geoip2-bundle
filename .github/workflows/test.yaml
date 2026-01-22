@@ -73,7 +73,11 @@ jobs:
         if: matrix.coverage == true
         run: |
           wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover build/coverage-clover.xml
+          php ocular.phar code-coverage:upload \
+              --format=php-clover \
+              --repository="gpslab/geoip2" \
+              --revision="${{ github.sha }}" \
+              build/coverage-clover.xml
 
       - name: Send coverage results to Coveralls
         env:

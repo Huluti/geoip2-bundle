@@ -6,3 +6,6 @@ test:
 
 analyze:
 	./vendor/bin/phpstan analyze --memory-limit=1G
+
+lint:
+	./vendor/bin/php-cs-fixer fix
