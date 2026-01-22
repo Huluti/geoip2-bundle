@@ -1,4 +1,4 @@
-# config for Symfony 6
+# config for Symfony 7
 
 includes:
     - symfony_5.neon

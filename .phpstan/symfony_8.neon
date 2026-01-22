@@ -1,4 +1,4 @@
-# config for Symfony 6
+# config for Symfony 8
 
 includes:
     - symfony_5.neon
