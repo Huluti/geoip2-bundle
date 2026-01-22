@@ -18,9 +18,9 @@ use PHPUnit\Framework\TestCase;
 class ReaderFactoryTest extends TestCase
 {
     /**
-     * @return list<list<?list<string>>>
+     * @return iterable<array<mixed>>
      */
-    public function getLocales(): array
+    public static function getLocales(): iterable
     {
         return [
             [null],

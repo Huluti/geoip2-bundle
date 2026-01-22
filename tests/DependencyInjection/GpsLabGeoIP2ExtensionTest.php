@@ -35,9 +35,9 @@ class GpsLabGeoIP2ExtensionTest extends TestCase
     }
 
     /**
-     * @return mixed[]
+     * @return iterable<array<mixed>>
      */
-    public function getCacheDirs(): array
+    public static function getCacheDirs(): iterable
     {
         return [
             [null],

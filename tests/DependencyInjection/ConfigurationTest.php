@@ -34,9 +34,9 @@ class ConfigurationTest extends TestCase
     ];
 
     /**
-     * @return mixed[]
+     * @return iterable<array<mixed>>
      */
-    public function getBadConfigs(): iterable
+    public static function getBadConfigs(): iterable
     {
         $configurations = [];
         // undefined edition
@@ -177,9 +177,9 @@ class ConfigurationTest extends TestCase
     }
 
     /**
-     * @return array<array<mixed>>
+     * @return iterable<array<mixed>>
      */
-    public function getConfigs(): iterable
+    public static function getConfigs(): iterable
     {
         foreach (['/tmp/var/cache', null] as $cache_dir) {
             $real_cache_dir = $cache_dir ?: sys_get_temp_dir();
