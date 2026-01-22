@@ -18,6 +18,7 @@ use GpsLab\Bundle\GeoIP2Bundle\DependencyInjection\GpsLabGeoIP2Extension;
 use GpsLab\Bundle\GeoIP2Bundle\Downloader\Downloader;
 use GpsLab\Bundle\GeoIP2Bundle\Downloader\MaxMindDownloader;
 use GpsLab\Bundle\GeoIP2Bundle\Reader\ReaderFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -46,12 +47,8 @@ class GpsLabGeoIP2ExtensionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider getCacheDirs
-     *
-     * @param string|bool|null $cache_dir
-     */
-    public function testLoad($cache_dir): void
+    #[DataProvider('getCacheDirs')]
+    public function testLoad(string|bool|null $cache_dir): void
     {
         $configs = [
             'gpslab_geoip' => [
@@ -174,12 +171,8 @@ class GpsLabGeoIP2ExtensionTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider getCacheDirs
-     *
-     * @param string|bool|null $cache_dir
-     */
-    public function testLoadWithEmptyConfiguration($cache_dir): void
+    #[DataProvider('getCacheDirs')]
+    public function testLoadWithEmptyConfiguration(string|bool|null $cache_dir): void
     {
         $container = new ContainerBuilder();
 

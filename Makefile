@@ -2,7 +2,7 @@ rector:
 	./vendor/bin/rector
 
 test:
-	./vendor/bin/phpunit --display-deprecations
+	./vendor/bin/phpunit
 
 analyze:
 	./vendor/bin/phpstan analyze --memory-limit=1G

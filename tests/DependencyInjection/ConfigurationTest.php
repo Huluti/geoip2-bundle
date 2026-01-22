@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace GpsLab\Bundle\GeoIP2Bundle\Tests\DependencyInjection;
 
 use GpsLab\Bundle\GeoIP2Bundle\DependencyInjection\Configuration;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
@@ -160,11 +161,9 @@ class ConfigurationTest extends TestCase
     }
 
     /**
-     * @dataProvider getBadConfigs
-     *
-     * @param string|null         $cache_dir
      * @param array<array<mixed>> $configs
      */
+    #[DataProvider('getBadConfigs')]
     public function testBadConfigs(?string $cache_dir, array $configs): void
     {
         $this->expectException(InvalidConfigurationException::class);
@@ -428,12 +427,10 @@ class ConfigurationTest extends TestCase
     }
 
     /**
-     * @dataProvider getConfigs
-     *
-     * @param string|null         $cache_dir
      * @param array<array<mixed>> $configs
      * @param array<array<mixed>> $expected
      */
+    #[DataProvider('getConfigs')]
     public function testConfigs(?string $cache_dir, array $configs, array $expected): void
     {
         $configuration = new Configuration($cache_dir);
