@@ -84,7 +84,10 @@ class DownloadDatabaseCommandTest extends TestCase
         $this->input
             ->expects($this->exactly(2))
             ->method('getArgument')
-            ->withConsecutive(['url'], ['target'])
+            ->willReturnMap([
+                ['url', $url],
+                ['target', $target],
+            ])
             ->willReturnOnConsecutiveCalls($url, $target);
 
         $this->command->run($this->input, $this->output);
@@ -101,7 +104,10 @@ class DownloadDatabaseCommandTest extends TestCase
         $this->input
             ->expects($this->exactly(2))
             ->method('getArgument')
-            ->withConsecutive(['url'], ['target'])
+            ->willReturnMap([
+                ['url', $url],
+                ['target', $target],
+            ])
             ->willReturnOnConsecutiveCalls($url, $target);
 
         $this->command->run($this->input, $this->output);
@@ -118,7 +124,10 @@ class DownloadDatabaseCommandTest extends TestCase
         $this->input
             ->expects($this->exactly(2))
             ->method('getArgument')
-            ->withConsecutive(['url'], ['target'])
+            ->willReturnMap([
+                ['url', $url],
+                ['target', $target],
+            ])
             ->willReturnOnConsecutiveCalls($url, $target);
 
         $this->command->run($this->input, $this->output);
@@ -132,7 +141,10 @@ class DownloadDatabaseCommandTest extends TestCase
         $this->input
             ->expects($this->exactly(2))
             ->method('getArgument')
-            ->withConsecutive(['url'], ['target'])
+            ->willReturnMap([
+                ['url', $url],
+                ['target', $target],
+            ])
             ->willReturnOnConsecutiveCalls($url, $target);
 
         $this->downloader

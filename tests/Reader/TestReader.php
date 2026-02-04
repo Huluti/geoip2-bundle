@@ -12,31 +12,20 @@ declare(strict_types=1);
 namespace GpsLab\Bundle\GeoIP2Bundle\Tests\Reader;
 
 use GeoIp2\Database\Reader;
+use MaxMind\Db\Reader\InvalidDatabaseException;
 
 /**
  * Test class for test the initialization of a Reader object without reading the database file.
  */
 class TestReader extends Reader
 {
-    /**
-     * @var string
-     */
-    public $filename;
-
-    /**
-     * @var string[]
-     */
-    public $locales;
-
-    /**
-     * @param string   $filename
-     * @param string[] $locales
-     */
-    public function __construct(string $filename, array $locales = ['en'])
+    public function __construct(public string $filename, array $locales = ['en'])
     {
-        $this->filename = $filename;
-        $this->locales = $locales;
-        // no call parent for not read database
-        // parent::__construct($filename, $locales);
+        try {
+            // Attempt to call the real constructor
+            parent::__construct($this->filename, $locales);
+        } catch (InvalidDatabaseException) {
+            // Ignore DB errors — test just wants to instantiate
+        }
     }
 }

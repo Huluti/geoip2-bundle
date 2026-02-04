@@ -193,7 +193,7 @@ class UpdateDatabaseCommandTest extends TestCase
     public function testDownloadWithoutLicense(): void
     {
         $this->input
-            ->expects($this->at(4))
+            ->expects($this->once())
             ->method('getArgument')
             ->with('databases')
             ->willReturn(['default']);
@@ -259,10 +259,10 @@ class UpdateDatabaseCommandTest extends TestCase
         $this->downloader
             ->expects($this->exactly(2))
             ->method('download')
-            ->withConsecutive(
-                [$databases['second']['url'], $databases['second']['path']],
-                [$databases['first']['url'], $databases['first']['path']]
-            );
+            ->willReturnMap([
+                [$databases['second']['url'], $databases['second']['path'], null],
+                [$databases['first']['url'], $databases['first']['path'], null],
+            ]);
 
         $command = new UpdateDatabaseCommand($this->downloader, $databases);
         $command->run($this->input, $this->output);

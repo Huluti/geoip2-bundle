@@ -21,16 +21,10 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class DownloadDatabaseCommand extends Command
 {
     /**
-     * @var Downloader
-     */
-    private $downloader;
-
-    /**
      * @param Downloader $downloader
      */
-    public function __construct(Downloader $downloader)
+    public function __construct(private readonly Downloader $downloader)
     {
-        $this->downloader = $downloader;
         parent::__construct();
     }
 

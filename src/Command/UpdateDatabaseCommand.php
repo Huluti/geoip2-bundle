@@ -21,23 +21,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class UpdateDatabaseCommand extends Command
 {
     /**
-     * @var Downloader
-     */
-    private $downloader;
-
-    /**
-     * @var array<string, ?array{url?: string|false, path?: string|false, locales?: string[], license?: ?string, edition?: string}>
-     */
-    private $databases;
-
-    /**
      * @param Downloader                                                                                                              $downloader
      * @param array<string, ?array{url?: string|false, path?: string|false, locales?: string[], license?: ?string, edition?: string}> $databases
      */
-    public function __construct(Downloader $downloader, array $databases)
+    public function __construct(private readonly Downloader $downloader, private array $databases)
     {
-        $this->downloader = $downloader;
-        $this->databases = $databases;
         parent::__construct();
     }
 

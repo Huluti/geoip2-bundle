@@ -13,14 +13,15 @@ namespace GpsLab\Bundle\GeoIP2Bundle\Tests\Reader;
 
 use GeoIp2\Database\Reader;
 use GpsLab\Bundle\GeoIP2Bundle\Reader\ReaderFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ReaderFactoryTest extends TestCase
 {
     /**
-     * @return list<list<?list<string>>>
+     * @return iterable<array<mixed>>
      */
-    public function getLocales(): array
+    public static function getLocales(): iterable
     {
         return [
             [null],
@@ -30,10 +31,9 @@ class ReaderFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider getLocales
-     *
      * @param string[]|null $locales
      */
+    #[DataProvider('getLocales')]
     public function testNoDatabases(?array $locales): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -44,10 +44,9 @@ class ReaderFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider getLocales
-     *
      * @param string[]|null $locales
      */
+    #[DataProvider('getLocales')]
     public function testUndefinedDatabase(?array $locales): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -61,10 +60,9 @@ class ReaderFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider getLocales
-     *
      * @param string[]|null $locales
      */
+    #[DataProvider('getLocales')]
     public function testNotConfiguredDatabase(?array $locales): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -77,10 +75,9 @@ class ReaderFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider getLocales
-     *
      * @param string[]|null $locales
      */
+    #[DataProvider('getLocales')]
     public function testEmptyPathToDatabase(?array $locales): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -95,10 +92,9 @@ class ReaderFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider getLocales
-     *
      * @param string[]|null $locales
      */
+    #[DataProvider('getLocales')]
     public function testCreate(?array $locales): void
     {
         $databases = [

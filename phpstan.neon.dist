@@ -1,2 +1,2 @@
 includes:
-    - .phpstan/symfony_5.neon
+    - .phpstan/default.neon

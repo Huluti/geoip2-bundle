@@ -180,16 +180,4 @@ class MaxMindDownloaderTest extends TestCase
 
         $this->downloader->download($url, $target);
     }
-
-    /**
-     * Hook for BC.
-     */
-    public static function assertMatchesRegularExpression(string $pattern, string $string, string $message = ''): void
-    {
-        if (method_exists(parent::class, 'assertMatchesRegularExpression')) {
-            parent::assertMatchesRegularExpression($pattern, $string, $message);
-        } else {
-            parent::assertRegExp($pattern, $string, $message);
-        }
-    }
 }

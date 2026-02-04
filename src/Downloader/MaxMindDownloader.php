@@ -30,23 +30,11 @@ use Symfony\Component\Filesystem\Filesystem;
 class MaxMindDownloader implements Downloader
 {
     /**
-     * @var Filesystem
-     */
-    private $fs;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    /**
      * @param Filesystem      $fs
      * @param LoggerInterface $logger
      */
-    public function __construct(Filesystem $fs, LoggerInterface $logger)
+    public function __construct(private readonly Filesystem $fs, private readonly LoggerInterface $logger)
     {
-        $this->fs = $fs;
-        $this->logger = $logger;
     }
 
     /**
