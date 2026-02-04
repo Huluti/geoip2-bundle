@@ -69,25 +69,5 @@ jobs:
       - name: Run Tests
         run: vendor/bin/phpunit --coverage-clover build/coverage-clover.xml
 
-      - name: Send coverage results to Scrutinizer CI
-        if: matrix.coverage == true
-        run: |
-          wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload \
-              --format=php-clover \
-              --repository="gpslab/geoip2" \
-              --revision="${{ github.sha }}" \
-              build/coverage-clover.xml
-
-      - name: Send coverage results to Coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_PARALLEL: true
-          COVERALLS_FLAG_NAME: 'PHP ${{ matrix.php }} + ${{ matrix.symfony }}'
-        if: matrix.coverage == true
-        run: |
-          composer global require php-coveralls/php-coveralls
-          php-coveralls -x build/coverage-clover.xml -o build/coveralls-upload.json -v
-
       - name: Run PHPStan
         run: ./vendor/bin/phpstan analyze --memory-limit=1G
