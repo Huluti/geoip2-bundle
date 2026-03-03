@@ -1,17 +1,17 @@
 {
-    "name": "gpslab/geoip2",
+    "name": "huluti/geoip2",
     "license": "MIT",
     "type": "symfony-bundle",
-    "homepage": "https://github.com/gpslab/geoip2",
+    "homepage": "https://github.com/huluti/geoip2",
     "description": "A Symfony Bundle for the Maxmind GeoIP2 API",
     "autoload": {
         "psr-4": {
-            "GpsLab\\Bundle\\GeoIP2Bundle\\": "src/"
+            "Huluti\\GeoIP2Bundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "GpsLab\\Bundle\\GeoIP2Bundle\\Tests\\": "tests/"
+            "Huluti\\GeoIP2Bundle\\Tests\\": "tests/"
         }
     },
     "require": {

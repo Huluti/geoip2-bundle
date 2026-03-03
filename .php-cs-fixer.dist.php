@@ -1,22 +1,10 @@
 <?php
 declare(strict_types=1);
 
-$header = <<<EOF
-GpsLab component.
-
-@author    Peter Gribanov <info@peter-gribanov.ru>
-@copyright Copyright (c) 2017, Peter Gribanov
-@license   http://opensource.org/licenses/MIT
-EOF;
-
 $rules = [
     '@Symfony' => true,
     'array_syntax' => [
         'syntax' => 'short',
-    ],
-    'header_comment' => [
-        'comment_type' => 'PHPDoc',
-        'header' => $header,
     ],
     'no_superfluous_phpdoc_tags' => false,
     'blank_line_after_opening_tag' => false,

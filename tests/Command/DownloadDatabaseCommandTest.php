@@ -1,18 +1,10 @@
 <?php
 declare(strict_types=1);
 
-/**
- * GpsLab component.
- *
- * @author    Peter Gribanov <info@peter-gribanov.ru>
- * @copyright Copyright (c) 2017, Peter Gribanov
- * @license   http://opensource.org/licenses/MIT
- */
+namespace Huluti\GeoIP2Bundle\Tests\Command;
 
-namespace GpsLab\Bundle\GeoIP2Bundle\Tests\Command;
-
-use GpsLab\Bundle\GeoIP2Bundle\Command\DownloadDatabaseCommand;
-use GpsLab\Bundle\GeoIP2Bundle\Downloader\Downloader;
+use Huluti\GeoIP2Bundle\Command\DownloadDatabaseCommand;
+use Huluti\GeoIP2Bundle\Downloader\Downloader;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;

@@ -1,38 +1,30 @@
 <?php
 declare(strict_types=1);
 
-/**
- * GpsLab component.
- *
- * @author    Peter Gribanov <info@peter-gribanov.ru>
- * @copyright Copyright (c) 2017, Peter Gribanov
- * @license   http://opensource.org/licenses/MIT
- */
-
-namespace GpsLab\Bundle\GeoIP2Bundle\Tests\DependencyInjection;
+namespace Huluti\GeoIP2Bundle\Tests\DependencyInjection;
 
 use GeoIp2\Database\Reader;
-use GpsLab\Bundle\GeoIP2Bundle\Command\DownloadDatabaseCommand;
-use GpsLab\Bundle\GeoIP2Bundle\Command\UpdateDatabaseCommand;
-use GpsLab\Bundle\GeoIP2Bundle\DependencyInjection\GpsLabGeoIP2Extension;
-use GpsLab\Bundle\GeoIP2Bundle\Downloader\Downloader;
-use GpsLab\Bundle\GeoIP2Bundle\Downloader\MaxMindDownloader;
-use GpsLab\Bundle\GeoIP2Bundle\Reader\ReaderFactory;
+use Huluti\GeoIP2Bundle\Command\DownloadDatabaseCommand;
+use Huluti\GeoIP2Bundle\Command\UpdateDatabaseCommand;
+use Huluti\GeoIP2Bundle\DependencyInjection\HulutiGeoIP2Extension;
+use Huluti\GeoIP2Bundle\Downloader\Downloader;
+use Huluti\GeoIP2Bundle\Downloader\MaxMindDownloader;
+use Huluti\GeoIP2Bundle\Reader\ReaderFactory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class GpsLabGeoIP2ExtensionTest extends TestCase
+class HulutiGeoIP2ExtensionTest extends TestCase
 {
     /**
-     * @var GpsLabGeoIP2Extension
+     * @var HulutiGeoIP2Extension
      */
     private $extension;
 
     protected function setUp(): void
     {
-        $this->extension = new GpsLabGeoIP2Extension();
+        $this->extension = new HulutiGeoIP2Extension();
     }
 
     /**
@@ -51,7 +43,7 @@ class GpsLabGeoIP2ExtensionTest extends TestCase
     public function testLoad(string|bool|null $cache_dir): void
     {
         $configs = [
-            'gpslab_geoip' => [
+            'huluti_geoip' => [
                 'default_database' => 'city',
                 'databases' => [
                     'asn' => [
@@ -78,12 +70,12 @@ class GpsLabGeoIP2ExtensionTest extends TestCase
             $container->setParameter('kernel.cache_dir', $cache_dir);
         }
 
-        $extension = new GpsLabGeoIP2Extension();
+        $extension = new HulutiGeoIP2Extension();
         $extension->load($configs, $container);
 
         $default_reader_service_name = sprintf(
             'geoip2.database.%s_reader',
-            $configs['gpslab_geoip']['default_database']
+            $configs['huluti_geoip']['default_database']
         );
 
         $this->assertTrue($container->hasAlias('geoip2.reader'));
@@ -105,7 +97,7 @@ class GpsLabGeoIP2ExtensionTest extends TestCase
         ]);
 
         $databases = [];
-        foreach ($configs['gpslab_geoip']['databases'] as $name => $database) {
+        foreach ($configs['huluti_geoip']['databases'] as $name => $database) {
             $service_name = sprintf('geoip2.database.%s_reader', $name);
 
             $this->assertTrue($container->hasDefinition($service_name));
@@ -180,7 +172,7 @@ class GpsLabGeoIP2ExtensionTest extends TestCase
             $container->setParameter('kernel.cache_dir', $cache_dir);
         }
 
-        $extension = new GpsLabGeoIP2Extension();
+        $extension = new HulutiGeoIP2Extension();
         $extension->load([], $container);
 
         $this->assertFalse($container->hasAlias('geoip2.reader'));
@@ -227,6 +219,6 @@ class GpsLabGeoIP2ExtensionTest extends TestCase
 
     public function testGetAlias(): void
     {
-        $this->assertSame('gpslab_geoip', $this->extension->getAlias());
+        $this->assertSame('huluti_geoip', $this->extension->getAlias());
     }
 }

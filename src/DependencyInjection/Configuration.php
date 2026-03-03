@@ -1,15 +1,7 @@
 <?php
 declare(strict_types=1);
 
-/**
- * GpsLab component.
- *
- * @author    Peter Gribanov <info@peter-gribanov.ru>
- * @copyright Copyright (c) 2017, Peter Gribanov
- * @license   http://opensource.org/licenses/MIT
- */
-
-namespace GpsLab\Bundle\GeoIP2Bundle\DependencyInjection;
+namespace Huluti\GeoIP2Bundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
@@ -50,7 +42,7 @@ class Configuration implements ConfigurationInterface
 
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $tree_builder = new TreeBuilder('gpslab_geoip');
+        $tree_builder = new TreeBuilder('huluti_geoip');
         $root_node = $tree_builder->getRootNode();
 
         $this->normalizeDefaultDatabase($root_node);

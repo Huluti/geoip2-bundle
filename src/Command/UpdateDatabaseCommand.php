@@ -1,17 +1,9 @@
 <?php
 declare(strict_types=1);
 
-/**
- * GpsLab component.
- *
- * @author    Peter Gribanov <info@peter-gribanov.ru>
- * @copyright Copyright (c) 2017, Peter Gribanov
- * @license   http://opensource.org/licenses/MIT
- */
+namespace Huluti\GeoIP2Bundle\Command;
 
-namespace GpsLab\Bundle\GeoIP2Bundle\Command;
-
-use GpsLab\Bundle\GeoIP2Bundle\Downloader\Downloader;
+use Huluti\GeoIP2Bundle\Downloader\Downloader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

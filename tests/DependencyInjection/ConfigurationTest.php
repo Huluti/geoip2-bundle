@@ -1,17 +1,9 @@
 <?php
 declare(strict_types=1);
 
-/**
- * GpsLab component.
- *
- * @author    Peter Gribanov <info@peter-gribanov.ru>
- * @copyright Copyright (c) 2017, Peter Gribanov
- * @license   http://opensource.org/licenses/MIT
- */
+namespace Huluti\GeoIP2Bundle\Tests\DependencyInjection;
 
-namespace GpsLab\Bundle\GeoIP2Bundle\Tests\DependencyInjection;
-
-use GpsLab\Bundle\GeoIP2Bundle\DependencyInjection\Configuration;
+use Huluti\GeoIP2Bundle\DependencyInjection\Configuration;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -42,7 +34,7 @@ class ConfigurationTest extends TestCase
         $configurations = [];
         // undefined edition
         $configurations[] = [
-            'gpslab_geoip' => [
+            'huluti_geoip' => [
                 'license' => 'LICENSE',
             ],
         ];
@@ -56,14 +48,14 @@ class ConfigurationTest extends TestCase
         //   GeoIP2-Domain
         //   GeoIP2-ISP
         $configurations[] = [
-            'gpslab_geoip' => [
+            'huluti_geoip' => [
                 'license' => 'LICENSE',
                 'edition' => 'EDITION',
             ],
         ];
-        // unrecognized option "edition" under "gpslab_geoip"
+        // unrecognized option "edition" under "huluti_geoip"
         $configurations[] = [
-            'gpslab_geoip' => [
+            'huluti_geoip' => [
                 'license' => 'LICENSE',
                 'edition' => 'GeoLite2-City',
                 'databases' => [],
@@ -71,7 +63,7 @@ class ConfigurationTest extends TestCase
         ];
         // undefined default database
         $configurations[] = [
-            'gpslab_geoip' => [
+            'huluti_geoip' => [
                 'default_database' => 'default',
                 'databases' => [
                     'foo' => [
@@ -83,7 +75,7 @@ class ConfigurationTest extends TestCase
         ];
         // undefined default database
         $configurations[] = [
-            'gpslab_geoip' => [
+            'huluti_geoip' => [
                 'default_database' => '',
                 'databases' => [
                     'foo' => [
@@ -95,7 +87,7 @@ class ConfigurationTest extends TestCase
         ];
         // invalid URL
         $configurations[] = [
-            'gpslab_geoip' => [
+            'huluti_geoip' => [
                 'databases' => [
                     'default' => [
                         'license' => 'LICENSE',
@@ -121,12 +113,12 @@ class ConfigurationTest extends TestCase
 
             // empty option in root
             $configurations[] = [
-                'gpslab_geoip' => $config,
+                'huluti_geoip' => $config,
             ];
 
             // empty option in database
             $configurations[] = [
-                'gpslab_geoip' => [
+                'huluti_geoip' => [
                     'databases' => [
                         'default' => $config,
                     ],
@@ -140,12 +132,12 @@ class ConfigurationTest extends TestCase
 
             // undefined option in root
             $configurations[] = [
-                'gpslab_geoip' => $config,
+                'huluti_geoip' => $config,
             ];
 
             // undefined option in database
             $configurations[] = [
-                'gpslab_geoip' => [
+                'huluti_geoip' => [
                     'databases' => [
                         'default' => $config,
                     ],
@@ -190,7 +182,7 @@ class ConfigurationTest extends TestCase
             ]];
 
             yield [$cache_dir, [
-                'gpslab_geoip' => null,
+                'huluti_geoip' => null,
             ], [
                 'locales' => ['en'],
                 'default_database' => 'default',
@@ -198,7 +190,7 @@ class ConfigurationTest extends TestCase
             ]];
 
             yield [$cache_dir, [
-                'gpslab_geoip' => [],
+                'huluti_geoip' => [],
             ], [
                 'locales' => ['en'],
                 'default_database' => 'default',
@@ -206,7 +198,7 @@ class ConfigurationTest extends TestCase
             ]];
 
             yield [$cache_dir, [
-                'gpslab_geoip' => [
+                'huluti_geoip' => [
                     'databases' => null,
                 ],
             ], [
@@ -216,7 +208,7 @@ class ConfigurationTest extends TestCase
             ]];
 
             yield [$cache_dir, [
-                'gpslab_geoip' => [
+                'huluti_geoip' => [
                     'databases' => [],
                 ],
             ], [
@@ -227,7 +219,7 @@ class ConfigurationTest extends TestCase
 
             foreach (self::DATABASE_EDITION_IDS as $database_edition_id) {
                 yield [$cache_dir, [
-                    'gpslab_geoip' => [
+                    'huluti_geoip' => [
                         'license' => 'LICENSE',
                         'edition' => $database_edition_id,
                     ],
@@ -246,7 +238,7 @@ class ConfigurationTest extends TestCase
                 ]];
 
                 yield [$cache_dir, [
-                    'gpslab_geoip' => [
+                    'huluti_geoip' => [
                         'license' => 'LICENSE',
                         'databases' => [
                             'default' => [
@@ -272,7 +264,7 @@ class ConfigurationTest extends TestCase
             }
 
             yield [$cache_dir, [
-                'gpslab_geoip' => [
+                'huluti_geoip' => [
                     'license' => 'LICENSE',
                     'edition' => 'GeoLite2-City',
                     'url' => 'https://example.com/GeoLite2-City.tar.gz',
@@ -292,7 +284,7 @@ class ConfigurationTest extends TestCase
             ]];
 
             yield [$cache_dir, [
-                'gpslab_geoip' => [
+                'huluti_geoip' => [
                     'license' => 'LICENSE',
                     'edition' => 'GeoLite2-City',
                     'path' => '%kernel.project_dir%/var/GeoLite2-City.mmdb',
@@ -312,7 +304,7 @@ class ConfigurationTest extends TestCase
             ]];
 
             yield [$cache_dir, [
-                'gpslab_geoip' => [
+                'huluti_geoip' => [
                     'default_database' => 'foo',
                     'databases' => [
                         'foo' => [
@@ -362,7 +354,7 @@ class ConfigurationTest extends TestCase
             ]];
 
             yield [$cache_dir, [
-                'gpslab_geoip' => [
+                'huluti_geoip' => [
                     'license' => 'LICENSE_1',
                     'locales' => ['ru', 'en'],
                     'databases' => [
@@ -401,7 +393,7 @@ class ConfigurationTest extends TestCase
             // test dirty hack for Symfony Flex
             // https://github.com/symfony/recipes-contrib/pull/837
             yield [$cache_dir, [
-                'gpslab_geoip' => [
+                'huluti_geoip' => [
                     'license' => 'YOUR-LICENSE-KEY',
                 ],
             ], [
@@ -411,7 +403,7 @@ class ConfigurationTest extends TestCase
             ]];
 
             yield [$cache_dir, [
-                'gpslab_geoip' => [
+                'huluti_geoip' => [
                     'databases' => [
                         'default' => [
                             'license' => 'YOUR-LICENSE-KEY',

@@ -1,28 +1,20 @@
 <?php
 declare(strict_types=1);
 
-/**
- * GpsLab component.
- *
- * @author    Peter Gribanov <info@peter-gribanov.ru>
- * @copyright Copyright (c) 2017, Peter Gribanov
- * @license   http://opensource.org/licenses/MIT
- */
+namespace Huluti\GeoIP2Bundle\Tests;
 
-namespace GpsLab\Bundle\GeoIP2Bundle\Tests;
-
-use GpsLab\Bundle\GeoIP2Bundle\DependencyInjection\GpsLabGeoIP2Extension;
-use GpsLab\Bundle\GeoIP2Bundle\GpsLabGeoIP2Bundle;
+use Huluti\GeoIP2Bundle\DependencyInjection\HulutiGeoIP2Extension;
+use Huluti\GeoIP2Bundle\HulutiGeoIP2Bundle;
 use PHPUnit\Framework\TestCase;
 
-class GpsLabGeoIP2BundleTest extends TestCase
+class HulutiGeoIP2BundleTest extends TestCase
 {
     public function testGetContainerExtension(): void
     {
-        $bundle = new GpsLabGeoIP2Bundle();
+        $bundle = new HulutiGeoIP2Bundle();
         $extension = $bundle->getContainerExtension();
 
-        $this->assertInstanceOf(GpsLabGeoIP2Extension::class, $extension);
+        $this->assertInstanceOf(HulutiGeoIP2Extension::class, $extension);
 
         // test laze-load
         $extension2 = $bundle->getContainerExtension();

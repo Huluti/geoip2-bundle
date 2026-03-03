@@ -1,15 +1,7 @@
 <?php
 declare(strict_types=1);
 
-/**
- * GpsLab component.
- *
- * @author    Peter Gribanov <info@peter-gribanov.ru>
- * @copyright Copyright (c) 2017, Peter Gribanov
- * @license   http://opensource.org/licenses/MIT
- */
-
-namespace GpsLab\Bundle\GeoIP2Bundle\Reader;
+namespace Huluti\GeoIP2Bundle\Reader;
 
 use GeoIp2\Database\Reader;
 

@@ -1,17 +1,9 @@
 <?php
 declare(strict_types=1);
 
-/**
- * GpsLab component.
- *
- * @author    Peter Gribanov <info@peter-gribanov.ru>
- * @copyright Copyright (c) 2017, Peter Gribanov
- * @license   http://opensource.org/licenses/MIT
- */
+namespace Huluti\GeoIP2Bundle\Tests\Downloader;
 
-namespace GpsLab\Bundle\GeoIP2Bundle\Tests\Downloader;
-
-use GpsLab\Bundle\GeoIP2Bundle\Downloader\MaxMindDownloader;
+use Huluti\GeoIP2Bundle\Downloader\MaxMindDownloader;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;

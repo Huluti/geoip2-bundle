@@ -1,6 +1,8 @@
-[![Latest Stable Version](https://img.shields.io/packagist/v/gpslab/geoip2.svg?maxAge=3600&label=stable)](https://packagist.org/packages/gpslab/geoip2)
-[![Test](https://github.com/gpslab/geoip2/actions/workflows/test.yaml/badge.svg)](https://github.com/gpslab/geoip2/actions/workflows/test.yaml)
-[![License](https://img.shields.io/packagist/l/gpslab/geoip2.svg?maxAge=3600)](https://github.com/gpslab/geoip2)
+_This is a fork of [gpslab/geoip2](https://github.com/gpslab/geoip2), maintained for newer Symfony versions.
+
+[![Latest Stable Version](https://img.shields.io/packagist/v/huluti/geoip2.svg?maxAge=3600&label=stable)](https://packagist.org/packages/gpslab/geoip2)
+[![Test](https://github.com/huluti/geoip2/actions/workflows/test.yaml/badge.svg)](https://github.com/huluti/geoip2/actions/workflows/test.yaml)
+[![License](https://img.shields.io/packagist/l/huluti/geoip2.svg?maxAge=3600)](https://github.com/huluti/geoip2)
 
 A Symfony Bundle for the Maxmind GeoIP2 API
 ===========================================
@@ -12,7 +14,7 @@ Bundle for use [maxmind/GeoIP2](https://github.com/maxmind/GeoIP2-php) in Symfon
 Pretty simple with [Composer](http://packagist.org), run:
 
 ```sh
-composer req gpslab/geoip2
+composer require huluti/geoip2
 ```
 
 ## Configuration
@@ -30,7 +32,7 @@ from first column.
 Example configuration:
 
 ```yml
-gpslab_geoip:
+huluti_geoip:
     # Your personal licence key
     license: 'XXXXXXXXXXXXXXXX'
 
@@ -58,7 +60,7 @@ You can change this URL, for example, if you want to use a proxy to download the
 URL in the configuration.
 
 ```yml
-gpslab_geoip:
+huluti_geoip:
     license: 'XXXXXXXXXXXXXXXX'
     edition: 'GeoLite2-City'
     url: 'https://example.com/GeoLite2-City.tar.gz'
@@ -72,7 +74,7 @@ database will be downloaded into folder `var/cache/{env}/`. Keeping the database
 environment may not be optimal. You can choose a common directory for all environments.
 
 ```yml
-gpslab_geoip:
+huluti_geoip:
     license: 'XXXXXXXXXXXXXXXX'
     edition: 'GeoLite2-City'
     path: '%kernel.project_dir%/var/GeoLite2-City.mmdb'
@@ -84,7 +86,7 @@ By default, the English locale is used for GeoIP record. You can change the loca
 locales for fallback.
 
 ```yml
-gpslab_geoip:
+huluti_geoip:
     license: 'XXXXXXXXXXXXXXXX'
     edition: 'GeoLite2-City'
     locales: [ 'ru', 'en' ]
@@ -127,7 +129,7 @@ For more example see the [GeoIP2](https://github.com/maxmind/GeoIP2-php) library
 You can use multiple GeoIP databases in one application. Need update configuration file. 
 
 ```yml
-gpslab_geoip:
+huluti_geoip:
     databases:
         default:
             license: 'XXXXXXXXXXXXXXXX'
@@ -160,7 +162,7 @@ $asn_reader = $this->get('geoip2.database.asn_reader');
 You can rename the default database.
 
 ```yml
-gpslab_geoip:
+huluti_geoip:
     default_database: 'city'
     databases:
         asn:
@@ -186,7 +188,7 @@ $default_reader = $this->get('geoip2.database.city_reader');
 In order not to repeat the license key and locales for each database, you can specify them once.
 
 ```yml
-gpslab_geoip:
+huluti_geoip:
     license: 'XXXXXXXXXXXXXXXX' # global license
     locales: [ 'ru', 'en' ] # global locales
     default_database: 'city'
@@ -208,7 +210,7 @@ gpslab_geoip:
 If you want to show the GeoIP data to the user and show them in the user locale, then you can use the reader factory.
 
 ```php
-use GpsLab\Bundle\GeoIP2Bundle\Reader\ReaderFactory;
+use Huluti\Bundle\GeoIP2Bundle\Reader\ReaderFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -242,7 +244,7 @@ php bin/console geoip2:update
 If you use multiple databases, then for config:
 
 ```yml
-gpslab_geoip:
+huluti_geoip:
     # ...
     databases:
         asn:

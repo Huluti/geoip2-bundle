@@ -1,28 +1,20 @@
 <?php
 declare(strict_types=1);
 
-/**
- * GpsLab component.
- *
- * @author    Peter Gribanov <info@peter-gribanov.ru>
- * @copyright Copyright (c) 2017, Peter Gribanov
- * @license   http://opensource.org/licenses/MIT
- */
-
-namespace GpsLab\Bundle\GeoIP2Bundle\DependencyInjection;
+namespace Huluti\GeoIP2Bundle\DependencyInjection;
 
 use GeoIp2\Database\Reader;
-use GpsLab\Bundle\GeoIP2Bundle\Command\DownloadDatabaseCommand;
-use GpsLab\Bundle\GeoIP2Bundle\Command\UpdateDatabaseCommand;
-use GpsLab\Bundle\GeoIP2Bundle\Downloader\Downloader;
-use GpsLab\Bundle\GeoIP2Bundle\Downloader\MaxMindDownloader;
-use GpsLab\Bundle\GeoIP2Bundle\Reader\ReaderFactory;
+use Huluti\GeoIP2Bundle\Command\DownloadDatabaseCommand;
+use Huluti\GeoIP2Bundle\Command\UpdateDatabaseCommand;
+use Huluti\GeoIP2Bundle\Downloader\Downloader;
+use Huluti\GeoIP2Bundle\Downloader\MaxMindDownloader;
+use Huluti\GeoIP2Bundle\Reader\ReaderFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Reference;
 
-class GpsLabGeoIP2Extension extends Extension
+class HulutiGeoIP2Extension extends Extension
 {
     /**
      * Pattern of database service name.
@@ -125,6 +117,6 @@ class GpsLabGeoIP2Extension extends Extension
      */
     public function getAlias(): string
     {
-        return 'gpslab_geoip';
+        return 'huluti_geoip';
     }
 }
