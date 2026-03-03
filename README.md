@@ -1,4 +1,4 @@
-_This is a fork of [gpslab/geoip2](https://github.com/gpslab/geoip2), maintained for newer Symfony versions.
+_This is a fork of [gpslab/geoip2](https://github.com/gpslab/geoip2), maintained for newer Symfony versions._
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/huluti/geoip2.svg?maxAge=3600&label=stable)](https://packagist.org/packages/gpslab/geoip2)
 [![Test](https://github.com/huluti/geoip2/actions/workflows/test.yaml/badge.svg)](https://github.com/huluti/geoip2/actions/workflows/test.yaml)
@@ -7,14 +7,14 @@ _This is a fork of [gpslab/geoip2](https://github.com/gpslab/geoip2), maintained
 A Symfony Bundle for the Maxmind GeoIP2 API
 ===========================================
 
-Bundle for use [maxmind/GeoIP2](https://github.com/maxmind/GeoIP2-php) in Symfony.
+Bundle to use [maxmind/GeoIP2](https://github.com/maxmind/GeoIP2-php) in Symfony.
 
 ## Installation
 
 Pretty simple with [Composer](http://packagist.org), run:
 
 ```sh
-composer require huluti/geoip2
+composer require huluti/geoip2-bundle
 ```
 
 ## Configuration

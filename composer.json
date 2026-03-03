@@ -1,8 +1,8 @@
 {
-    "name": "huluti/geoip2",
+    "name": "huluti/geoip2-bundle",
     "license": "MIT",
     "type": "symfony-bundle",
-    "homepage": "https://github.com/huluti/geoip2",
+    "homepage": "https://github.com/huluti/geoip2-bundle",
     "description": "A Symfony Bundle for the Maxmind GeoIP2 API",
     "autoload": {
         "psr-4": {
